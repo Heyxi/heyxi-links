@@ -77,10 +77,14 @@ h1 {
 /* ТРЯСКА КНОПКИ */
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-4px); }
-    75% { transform: translateX(4px); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
 }
-.shake-animation { animation: shake 0.3s ease-in-out !important; border-color: #4ade80 !important; }
+
+.shake-animation {
+    animation: shake 0.3s ease-in-out !important;
+    border-color: #4ade80 !important; /* Зеленая рамка при копировании */
+}
 
 .icon { width: 24px; height: 24px; margin-right: 15px; }
 
@@ -230,3 +234,4 @@ footer { margin-top: 25px; font-size: 11px; color: #444; }
     font-size: 20px;
     transition: 0.3s;
 }
+
