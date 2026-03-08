@@ -1,7 +1,19 @@
 const clickAudio = new Audio("data:audio/wav;base64,UklGRl9vT19XQVZFRm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YTdvT18AZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZmZm");
 let eggClicks = 0;
 
-
+function updateStatus() {
+    const dot = document.getElementById('status-dot');
+    const text = document.getElementById('status-text');
+    if (!dot || !text) return;
+    const hour = new Date().getHours();
+    if (hour >= 0 && hour < 8) {
+        dot.className = 'offline-dot';
+        text.innerText = 'Хэй-Кси сейчас спит 💤';
+    } else {
+        dot.className = 'online-dot';
+        text.innerText = 'Хэй-Кси в сети 🟢';
+    }
+}
 
 if (typeof particlesJS !== 'undefined') {
     particlesJS("particles-js", {
