@@ -251,6 +251,54 @@ footer { margin-top: 25px; font-size: 11px; color: #444; }
     border-radius: 50%;
     transition: 0.3s;
 }
+/* ЭФФЕКТ ГЛИТЧА */
+.glitch-hover:hover {
+    animation: glitch-skew 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+}
+
+/* Создаем цветовые слои для глитча */
+.glitch-hover:hover::before,
+.glitch-hover:hover::after {
+    content: attr(data-text); /* Берет текст из HTML атрибута */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+}
+
+.glitch-hover:hover::before {
+    color: #0ff; /* Циановый слой */
+    z-index: -1;
+    animation: glitch-anim 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+}
+
+.glitch-hover:hover::after {
+    color: #f0f; /* Розовый слой */
+    z-index: -2;
+    animation: glitch-anim 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
+}
+
+/* Анимация дрожания */
+@keyframes glitch-anim {
+    0% { transform: translate(0); }
+    20% { transform: translate(-3px, 3px); }
+    40% { transform: translate(-3px, -3px); }
+    60% { transform: translate(3px, 3px); }
+    80% { transform: translate(3px, -3px); }
+    100% { transform: translate(0); }
+}
+
+@keyframes glitch-skew {
+    0% { transform: skew(0deg); }
+    20% { transform: skew(-5deg); }
+    40% { transform: skew(5deg); }
+    60% { transform: skew(-2deg); }
+    80% { transform: skew(2deg); }
+    100% { transform: skew(0deg); }
+}
+
 
 
 
