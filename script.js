@@ -144,5 +144,26 @@ function showSuccess(btn, span, originalText) {
         span.innerText = originalText;
     }, 1200);
 }
+function updateStatus() {
+    const dot = document.getElementById('status-dot');
+    const text = document.getElementById('status-text');
+    const hour = new Date().getHours();
+
+    // Настройка времени: спит с 00:00 до 08:00
+    if (hour >= 0 && hour < 8) {
+        dot.className = 'offline-dot';
+        text.innerText = 'Хэй-Кси сейчас спит 💤';
+    } else {
+        dot.className = 'online-dot';
+        text.innerText = 'Хэй-Кси сейчас в сети 🟢';
+    }
+}
+
+// Запускаем проверку при загрузке
+updateStatus();
+// И обновляем каждую минуту на случай, если вкладка открыта долго
+setInterval(updateStatus, 60000);
+
+
 
 
