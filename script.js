@@ -135,38 +135,8 @@ function copyValue(val, id, originalText) {
     }
 }
 
-// Функция обновления статуса
-function updateStatus() {
-    const dot = document.getElementById('status-dot');
-    const text = document.getElementById('status-text');
-    
-    // Если скрипт не нашел элементы, он просто подождет и не выдаст ошибку
-    if (!dot || !text) return;
 
-    const hour = new Date().getHours();
 
-    // Спит с 00:00 до 08:00
-    if (hour >= 0 && hour < 8) {
-        dot.style.backgroundColor = '#94a3b8'; // Серый
-        dot.style.boxShadow = '0 0 5px #94a3b8';
-        dot.classList.remove('online-dot');
-        text.innerText = 'Хэй-Кси сейчас спит 💤';
-    } else {
-        dot.style.backgroundColor = '#4ade80'; // Зеленый
-        dot.style.boxShadow = '0 0 15px #4ade80';
-        dot.classList.add('online-dot');
-        text.innerText = 'Хэй-Кси в сети 🟢';
-    }
-}
-
-// ГЛАВНЫЙ ЗАПУСК (Оберни всё появление кнопок в это!)
-document.addEventListener('DOMContentLoaded', () => {
-    // Сразу обновляем статус
-    updateStatus();
-    
-    // Остальной твой код (анимация кнопок, частицы и т.д.)
-    // ...
-});
 
 
 
