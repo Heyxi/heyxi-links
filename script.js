@@ -106,15 +106,25 @@ function toggleMusic() {
 }
 
 // 6. КОПИРОВАНИЕ (DISCORD / ССЫЛКА)
-function copyValue(val, id, original) {
+function copyValue(val, id, originalText) {
     const btn = document.getElementById(id);
     const span = btn.querySelector('span');
+
+    // Пытаемся скопировать текст
     navigator.clipboard.writeText(val).then(() => {
+        // 1. Добавляем класс тряски (из CSS)
         btn.classList.add('shake-animation');
+        
+        // 2. Меняем текст
         span.innerText = "Скопировано!";
+        
+        // 3. Через 1 секунду возвращаем всё назад
         setTimeout(() => {
             btn.classList.remove('shake-animation');
-            span.innerText = original;
+            span.innerText = originalText;
         }, 1000);
+    }).catch(err => {
+        console.error('Ошибка копирования: ', err);
     });
 }
+
