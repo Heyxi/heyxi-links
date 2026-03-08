@@ -252,29 +252,6 @@ footer { margin-top: 25px; font-size: 11px; color: #444; }
     transition: 0.3s;
 }
 
-/* Состояние: В сети (Зеленый) */
-.online-dot {
-    background-color: #4ade80;
-    box-shadow: 0 0 10px #4ade80, 0 0 20px #4ade80;
-    animation: pulseStatus 2s infinite;
-}
-
-/* Состояние: Спит (Серый) */
-.offline-dot {
-    background-color: #94a3b8;
-    box-shadow: 0 0 5px #94a3b8;
-}
-
-@keyframes pulseStatus {
-    0% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.2); }
-    100% { opacity: 1; transform: scale(1); }
-}
-
-#status-text {
-    color: rgba(255, 255, 255, 0.8);
-}
-
 
 
 
