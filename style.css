@@ -132,10 +132,11 @@ footer { margin-top: 25px; font-size: 11px; color: #444; }
     pointer-events: none; /* Чтобы клики пролетали сквозь картинку к блоку */
 }
 .share-btn {
-    margin-top: 10px;
-    background: rgba(74, 222, 128, 0.05) !important;
-    border: 1px dashed rgba(74, 222, 128, 0.3) !important;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Чтобы текст был рядом с иконкой */
 }
+
 
 .share-btn:hover {
     background: rgba(74, 222, 128, 0.15) !important;
@@ -234,4 +235,5 @@ footer { margin-top: 25px; font-size: 11px; color: #444; }
     font-size: 20px;
     transition: 0.3s;
 }
+
 
