@@ -1,305 +1,85 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background-color: #0d1117;
-    color: #ffffff;
-    font-family: 'Montserrat', 'Segoe UI', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    overflow: hidden;
+    background-color: #0d1117; color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh; overflow: hidden;
 }
 
-#particles-js {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 0; /* Фон под карточкой */
-    background: #0d1117; /* Цвет фона */
-}
+#particles-js { position: fixed; width: 100%; height: 100%; z-index: 0; }
 
-canvas.particles-js-canvas-el {
-    display: block; /* Убирает лишние отступы холста */
-}
-
-
-/* Розовое свечение для карточки в стиле сакуры */
+/* RGB РАМКА */
 .card-wrapper {
+    position: relative; z-index: 10; padding: 3px; border-radius: 38px;
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    background-size: 400%; animation: rgbBorder 10s linear infinite;
     box-shadow: 0 0 30px rgba(255, 183, 197, 0.2);
 }
 
-
-/* RGB-РАМКА */
-.card-wrapper {
-    position: relative; z-index: 10; padding: 3px;
-    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8);
-    background-size: 400%; border-radius: 38px;
-    animation: rgbBorder 10s linear infinite;
-}
-
 @keyframes rgbBorder {
-    0%, 100% { background-position: 0% 50%; }
+    0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .card {
     background: #161b22; border-radius: 35px;
     padding: 45px 30px; width: 350px; text-align: center;
-    transition: 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-/* ПОСТОЯННОЕ RGB-ИМЯ */
+/* АВАТАР */
+.avatar {
+    width: 90px; height: 90px; margin: 0 auto 20px; border-radius: 50%;
+    overflow: hidden; cursor: pointer; border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+    transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.avatar:hover { transform: scale(1.15) rotate(10deg); }
+.avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+/* RGB ИМЯ */
 h1 {
     font-size: 30px; font-weight: 800; margin-bottom: 5px;
     background: linear-gradient(to right, #fff, #6366f1, #a855f7, #ec4899, #fff);
     background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     animation: rainbowShift 3s linear infinite;
 }
-
 @keyframes rainbowShift { to { background-position: 200% center; } }
+
+/* СТАТУС */
+.status-container { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px; }
+#status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.online-dot { background: #4ade80; box-shadow: 0 0 10px #4ade80; animation: pulse 2s infinite; }
+.offline-dot { background: #94a3b8; }
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } }
+#status-text { font-size: 14px; color: rgba(255,255,255,0.7); }
 
 .description { font-size: 13px; color: #666; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px; }
 
+/* КНОПКИ */
 .links { display: flex; flex-direction: column; gap: 12px; }
-
 .item {
     display: flex; align-items: center; background: rgba(255, 255, 255, 0.05);
     padding: 16px 20px; border-radius: 18px; text-decoration: none; color: #fff;
-    font-weight: 600; border: 1px solid rgba(255, 255, 255, 0.05); cursor: pointer; transition: 0.3s;
+    font-weight: 600; border: 1px solid rgba(255, 255, 255, 0.05); cursor: pointer;
+    opacity: 0; transform: translateY(30px) scale(0.9); filter: blur(5px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.8s ease;
 }
+.item.visible { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+.item:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255,255,255,0.2); }
 
-.item:hover { background: rgba(255, 255, 255, 0.1); transform: scale(1.03); border-color: rgba(255, 255, 255, 0.2); }
-.item:active { transform: scale(0.95) !important; }
+/* ПЛЕЕР */
+.music-player-container { position: fixed; top: 20px; right: 20px; display: flex; align-items: center; gap: 10px; z-index: 100; }
+#volume-slider { width: 0; opacity: 0; transition: 0.4s; accent-color: #ffb7c5; }
+.music-player-container:hover #volume-slider { width: 80px; opacity: 1; }
+.music-player { width: 45px; height: 45px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; }
 
-/* ТРЯСКА КНОПКИ */
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-}
-
-.shake-animation {
-    animation: shake 0.3s ease-in-out !important;
-    border-color: #4ade80 !important; /* Зеленая рамка при копировании */
-}
+/* ТРЯСКА И ПАСХАЛКА */
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+.shake-animation { animation: shake 0.3s ease-in-out; border-color: #4ade80 !important; }
+.easter-egg-spin { animation: spin 1s forwards; }
+@keyframes spin { to { transform: rotate(360deg); } }
 
 .icon { width: 24px; height: 24px; margin-right: 15px; }
-
-.avatar {
-    width: 80px; height: 80px; background: linear-gradient(45deg, #6366f1, #a855f7);
-    border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center;
-    justify-content: center; font-size: 28px; font-weight: 900; cursor: pointer;
-    box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
-}
-
-.easter-egg-spin { animation: spinCard 1s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
-@keyframes spinCard { to { transform: rotate(360deg); } }
-
-.copied { color: #4ade80 !important; }
 footer { margin-top: 25px; font-size: 11px; color: #444; }
-.avatar {
-    width: 90px;
-    height: 90px;
-    background: linear-gradient(45deg, #6366f1, #a855f7);
-    border-radius: 50%;
-    margin: 0 auto 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
-    overflow: hidden;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    
-    /* Плавный переход для всех свойств */
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
-}
-
-/* Эффект при наведении */
-.avatar:hover {
-    transform: scale(1.15) rotate(10deg); /* Увеличение и легкий поворот */
-    box-shadow: 0 0 35px rgba(168, 85, 247, 0.7);
-    border-color: rgba(255, 255, 255, 0.6);
-}
-
-.avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    pointer-events: none; /* Чтобы клики пролетали сквозь картинку к блоку */
-}
-.share-btn {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start; /* Чтобы текст был рядом с иконкой */
-}
-
-
-.share-btn:hover {
-    background: rgba(74, 222, 128, 0.15) !important;
-    border-color: #4ade80 !important;
-}
-
-/* Эффект успеха для текста */
-.share-success {
-    color: #4ade80 !important;
-    font-weight: 800;
-}
-/* Кнопка плеера */
-.music-player {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 45px;
-    height: 45px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    z-index: 100;
-    font-size: 20px;
-    transition: 0.3s;
-}
-
-.music-player:hover {
-    transform: scale(1.1);
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* Анимация пульсации при проигрывании */
-.music-playing {
-    box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
-    border-color: #a855f7;
-    animation: pulseMusic 2s infinite;
-}
-
-@keyframes pulseMusic {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
-}
-/* Добавь это к стилям плеера в style.css */
-.music-playing #music-icon {
-    animation: rotateIcon 4s linear infinite;
-}
-
-@keyframes rotateIcon {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-/* Контейнер для плеера и слайдера */
-.music-player-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    z-index: 100;
-}
-
-/* Стили слайдера громкости */
-#volume-slider {
-    width: 0; /* Изначально скрыт */
-    opacity: 0;
-    cursor: pointer;
-    transition: all 0.4s ease;
-    accent-color: #a855f7; /* Цвет ползунка */
-}
-
-/* Показываем слайдер при наведении на весь контейнер */
-.music-player-container:hover #volume-slider {
-    width: 80px;
-    opacity: 1;
-}
-
-/* Кнопка плеера (обнови существующий стиль) */
-.music-player {
-    width: 45px;
-    height: 45px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    font-size: 20px;
-    transition: 0.3s;
-}
-.status-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 10px;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-#status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    transition: 0.3s;
-}
-/* ЭФФЕКТ ГЛИТЧА */
-.glitch-hover:hover {
-    animation: glitch-skew 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
-}
-
-/* Создаем цветовые слои для глитча */
-.glitch-hover:hover::before,
-.glitch-hover:hover::after {
-    content: attr(data-text); /* Берет текст из HTML атрибута */
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.8;
-}
-
-.glitch-hover:hover::before {
-    color: #0ff; /* Циановый слой */
-    z-index: -1;
-    animation: glitch-anim 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
-}
-
-.glitch-hover:hover::after {
-    color: #f0f; /* Розовый слой */
-    z-index: -2;
-    animation: glitch-anim 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
-}
-
-/* Анимация дрожания */
-@keyframes glitch-anim {
-    0% { transform: translate(0); }
-    20% { transform: translate(-3px, 3px); }
-    40% { transform: translate(-3px, -3px); }
-    60% { transform: translate(3px, 3px); }
-    80% { transform: translate(3px, -3px); }
-    100% { transform: translate(0); }
-}
-
-@keyframes glitch-skew {
-    0% { transform: skew(0deg); }
-    20% { transform: skew(-5deg); }
-    40% { transform: skew(5deg); }
-    60% { transform: skew(-2deg); }
-    80% { transform: skew(2deg); }
-    100% { transform: skew(0deg); }
-}
-
-
-
-
-
