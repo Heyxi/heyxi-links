@@ -110,21 +110,39 @@ function copyValue(val, id, originalText) {
     const btn = document.getElementById(id);
     const span = btn.querySelector('span');
 
-    // Пытаемся скопировать текст
-    navigator.clipboard.writeText(val).then(() => {
-        // 1. Добавляем класс тряски (из CSS)
-        btn.classList.add('shake-animation');
-        
-        // 2. Меняем текст
-        span.innerText = "Скопировано!";
-        
-        // 3. Через 1 секунду возвращаем всё назад
-        setTimeout(() => {
-            btn.classList.remove('shake-animation');
-            span.innerText = originalText;
-        }, 1000);
-    }).catch(err => {
-        console.error('Ошибка копирования: ', err);
-    });
+    // Если мы на компьютере (file://), window.location.href может выдать путь к файлу. 
+    // Если сайт уже в сети, он выдаст ссылку https://.
+    const textToCopy = val;
+
+    if (navigator.clipboard && window.isSecureContext) {
+        // Современный способ
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            showSuccess(btn, span, originalText);
+        });
+    } else {
+        // Запасной способ для локальных файлов
+        const textArea = document.createElement("textarea");
+        textArea.value = textToCopy;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            showSuccess(btn, span, originalText);
+        } catch (err) {
+            console.error('Не удалось скопировать', err);
+        }
+        document.body.removeChild(textArea);
+    }
 }
+
+// Вспомогательная функция для эффектов
+function showSuccess(btn, span, originalText) {
+    btn.classList.add('shake-animation');
+    span.innerText = "Скопировано!";
+    setTimeout(() => {
+        btn.classList.remove('shake-animation');
+        span.innerText = originalText;
+    }, 1200);
+}
+
 
